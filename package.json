@@ -1,0 +1,27 @@
+{
+  "name": "desktopical",
+  "version": "1.0.0",
+  "description": "A framework for building desktop-like interfaces for the browser, aimed at games",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Thristhart/desktopical.js.git"
+  },
+  "keywords": [
+    "desktop",
+    "windows"
+  ],
+  "author": "thristhart <tom@shea.at>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Thristhart/desktopical.js/issues"
+  },
+  "homepage": "https://github.com/Thristhart/desktopical.js",
+  "dependencies": {
+    "deepmerge": "^0.2.7",
+    "windowsill": "file:../windowsill"
+  },
+}
