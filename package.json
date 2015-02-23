@@ -23,5 +23,5 @@
   "dependencies": {
     "deepmerge": "^0.2.7",
     "windowsill": "file:../windowsill"
-  },
+  }
 }
