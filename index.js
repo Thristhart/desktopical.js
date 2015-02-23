@@ -2,9 +2,7 @@ var Windowsill = require('../windowsill');
 var merge = require('deepmerge');
 
 var Desktopical = function(opts) {
-  this.opts = {
-    appPath: "./apps/"
-  };
+  this.opts = {};
   if(!opts) opts = {};
   merge(this.opts, opts);
 
@@ -12,12 +10,24 @@ var Desktopical = function(opts) {
   this.applications = {};
   this.runningApps = [];
 
+  this.element = document.createElement("div");
+  this.element.className = "desktopical";
   this.addWorkspace();
 };
 Desktopical.prototype.addWorkspace = function() {
   var workspace = new Windowsill.Workspace();
   this.workspaces.push(workspace);
+  if(this.workspaces.length == 1) {
+    this.switchToWorkspace(0);
+  }
   return workspace;
+};
+Desktopical.prototype.switchToWorkspace = function(index) {
+  if(this.visibleWorkspace) {
+    this.element.removeChild(this.workspaces[this.visibleWorkspace]);
+  }
+  this.visibleWorkspace = index;
+  this.element.appendChild(this.workspaces[this.visibleWorkspace]);
 };
 Desktopical.prototype.registerApplication = function(app) {
   if(!app.shortname)
