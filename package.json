@@ -21,6 +21,6 @@
   },
   "homepage": "https://github.com/Thristhart/desktopical.js",
   "dependencies": {
-    "deepmerge": "^0.2.7",
+    "deepmerge": "^0.2.7"
   }
 }
