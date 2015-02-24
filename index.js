@@ -68,7 +68,6 @@ Desktopical.prototype.createWindow = function(app, opts) {
   opts = merge({
     workspace: this.visibleWorkspace
   }, opts);
-  log(this.workspaces, opts);
   var window = this.workspaces[opts.workspace].createWindow(opts);
   return window;
 };
