@@ -14,6 +14,9 @@ var Desktopical = function(opts) {
   this.element.className = "desktopical";
   this.addWorkspace();
 };
+
+Desktopical.Application = require('./lib/application.js');
+
 Desktopical.prototype.addWorkspace = function() {
   var workspace = new Windowsill.Workspace();
   this.workspaces.push(workspace);
@@ -36,7 +39,7 @@ Desktopical.prototype.registerApplication = function(app) {
     throw new Error("Applications must have a name");
   if(!app.descriptions)
     throw new Error("Applications must have a description");
-  if(!app instanceof EventEmitter)
-    throw new Error("Applications must inherit EventEmitter");
+  if(!app instanceof Desktopical.Application)
+    throw new Error("Applications must inherit Application");
 };
 module.exports = Desktopical;
