@@ -1,5 +1,6 @@
 var Windowsill = require('../windowsill');
 var merge = require('deepmerge');
+var log = require('debug')('desktopical');
 
 var Desktopical = function(opts) {
   this.opts = {};
@@ -31,6 +32,7 @@ Desktopical.prototype.switchToWorkspace = function(index) {
   }
   this.visibleWorkspace = index;
   this.element.appendChild(this.workspaces[this.visibleWorkspace].element);
+  log("Switched to workspace %d", index);
 };
 Desktopical.prototype.registerApplication = function(app) {
   if(!app.shortname)
@@ -41,5 +43,7 @@ Desktopical.prototype.registerApplication = function(app) {
     throw new Error("Applications must have a description");
   if(!app instanceof Desktopical.Application)
     throw new Error("Applications must inherit Application");
+
+  log("Registered new application: <%s> - '%s'", app.shortname, app.name);
 };
 module.exports = Desktopical;
