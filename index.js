@@ -37,13 +37,13 @@ Desktopical.prototype.switchToWorkspace = function(index) {
 Desktopical.prototype.registerApplication = function(app) {
   if(!app.shortname)
     throw new Error("Applications must have a unique shortname");
-  if(!app.name)
-    throw new Error("Applications must have a name");
-  if(!app.descriptions)
+  if(!app.fullname)
+    throw new Error("Applications must have a full name");
+  if(!app.description)
     throw new Error("Applications must have a description");
   if(!app instanceof Desktopical.Application)
     throw new Error("Applications must inherit Application");
 
-  log("Registered new application: <%s> - '%s'", app.shortname, app.name);
+  log("Registered new application: <%s> - '%s'", app.shortname, app.fullname);
 };
 module.exports = Desktopical;
