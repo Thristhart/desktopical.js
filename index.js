@@ -1,6 +1,7 @@
 var Windowsill = require('../windowsill');
 var merge = require('deepmerge');
 var log = require('debug')('desktopical');
+var util = require('util');
 
 var Desktopical = function(opts) {
   this.opts = {};
@@ -43,6 +44,9 @@ Desktopical.prototype.registerApplication = function(app) {
     throw new Error("Applications must have a description");
   if(!app instanceof Desktopical.Application)
     throw new Error("Applications must inherit Application");
+
+  util.inherits(app, Desktopical.Application);
+  this.applications[app.shortname] = app;
 
   log("Registered new application: <%s> - '%s'", app.shortname, app.fullname);
 };
