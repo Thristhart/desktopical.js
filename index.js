@@ -15,6 +15,8 @@ var Desktopical = function(opts) {
   this.element = document.createElement("div");
   this.element.className = "desktopical";
   this.addWorkspace();
+
+  this.tick();
 };
 
 Desktopical.Application = require('./lib/application.js');
@@ -69,5 +71,12 @@ Desktopical.prototype.createWindow = function(app, opts) {
   log(this.workspaces, opts);
   var window = this.workspaces[opts.workspace].createWindow(opts);
   return window;
+};
+
+Desktopical.prototype.tick = function() {
+  this.runningApps.forEach(function(appInstance) {
+    appInstance.emit("tick");
+  });
+  requestAnimationFrame(this.tick.bind(this));
 };
 module.exports = Desktopical;
