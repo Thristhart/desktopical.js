@@ -42,8 +42,6 @@ Desktopical.prototype.registerApplication = function(app) {
     throw new Error("Applications must have a full name");
   if(!app.description)
     throw new Error("Applications must have a description");
-  if(!app instanceof Desktopical.Application)
-    throw new Error("Applications must inherit Application");
 
   util.inherits(app, Desktopical.Application);
   this.applications[app.shortname] = app;
