@@ -48,4 +48,26 @@ Desktopical.prototype.registerApplication = function(app) {
 
   log("Registered new application: <%s> - '%s'", app.shortname, app.fullname);
 };
+Desktopical.prototype.run = function(app) {
+  var instance;
+  if(app instanceof Desktopical.Application) {
+    instance = new app(this);
+  }
+  if((typeof app) === "string") {
+    instance = new this.applications[app](this);
+  }
+  if(!instance)
+    throw new Error("Unknown/unregistered app " + app);
+  this.runningApps.push(instance);
+  return instance;
+};
+Desktopical.prototype.createWindow = function(app, opts) {
+  if(!opts) opts = {};
+  opts = merge({
+    workspace: this.visibleWorkspace
+  }, opts);
+  log(this.workspaces, opts);
+  var window = this.workspaces[opts.workspace].createWindow(opts);
+  return window;
+};
 module.exports = Desktopical;
