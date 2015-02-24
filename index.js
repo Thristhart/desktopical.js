@@ -35,7 +35,7 @@ Desktopical.prototype.switchToWorkspace = function(index) {
   log("Switched to workspace %d", index);
 };
 Desktopical.prototype.registerApplication = function(app) {
-  if(!app.shortname)
+  if(!app.shortname || this.applications[app.shortname])
     throw new Error("Applications must have a unique shortname");
   if(!app.fullname)
     throw new Error("Applications must have a full name");
