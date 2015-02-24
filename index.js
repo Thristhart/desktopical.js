@@ -24,10 +24,10 @@ Desktopical.prototype.addWorkspace = function() {
 };
 Desktopical.prototype.switchToWorkspace = function(index) {
   if(this.visibleWorkspace) {
-    this.element.removeChild(this.workspaces[this.visibleWorkspace]);
+    this.element.removeChild(this.workspaces[this.visibleWorkspace].element);
   }
   this.visibleWorkspace = index;
-  this.element.appendChild(this.workspaces[this.visibleWorkspace]);
+  this.element.appendChild(this.workspaces[this.visibleWorkspace].element);
 };
 Desktopical.prototype.registerApplication = function(app) {
   if(!app.shortname)
