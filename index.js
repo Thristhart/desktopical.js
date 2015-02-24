@@ -6,7 +6,7 @@ var util = require('util');
 var Desktopical = function(opts) {
   this.opts = {};
   if(!opts) opts = {};
-  merge(this.opts, opts);
+  this.opts = merge(this.opts, opts);
 
   this.workspaces = [];
   this.applications = {};
