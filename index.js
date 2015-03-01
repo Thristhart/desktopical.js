@@ -31,10 +31,10 @@ Desktopical.prototype.addWorkspace = function() {
 };
 Desktopical.prototype.switchToWorkspace = function(index) {
   if(this.visibleWorkspace) {
-    this.element.removeChild(this.workspaces[this.visibleWorkspace].element);
+    this.element.removeChild(this.workspace().element);
   }
   this.visibleWorkspace = index;
-  this.element.appendChild(this.workspaces[this.visibleWorkspace].element);
+  this.element.appendChild(this.workspace().element);
   log("Switched to workspace %d", index);
 };
 Desktopical.prototype.registerApplication = function(app) {
@@ -70,6 +70,13 @@ Desktopical.prototype.createWindow = function(app, opts) {
   }, opts);
   var window = this.workspaces[opts.workspace].createWindow(opts);
   return window;
+};
+
+Desktopical.prototype.workspace = function(index) {
+  if(typeof index == "undefined" || index === null) {
+    index = this.visibleWorkspace;
+  }
+  return this.workspaces[index];
 };
 
 Desktopical.prototype.tick = function() {
