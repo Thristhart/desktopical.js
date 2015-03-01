@@ -72,6 +72,9 @@ Desktopical.prototype.createWindow = function(app, opts) {
     workspace: this.visibleWorkspace
   }, opts);
   var window = this.workspaces[opts.workspace].createWindow(opts);
+  if(this.taskbar) {
+    this.createTaskbarButton(window, app);
+  }
   return window;
 };
 
@@ -88,6 +91,19 @@ Desktopical.prototype.createTaskbar = function() {
   this.taskbar = document.createElement("ul");
   this.taskbar.className = "desktopical taskbar " + this.opts.taskBar;
   this.element.appendChild(this.taskbar);
+};
+Desktopical.prototype.createTaskbarButton = function(window, app) {
+  var buttonElement = document.createElement("li");
+  buttonElement.className = "desktopical task " + app.constructor.shortname + "app";
+  buttonElement.setAttribute("data-appid", app.constructor.shortname);
+  buttonElement.innerText = window.title;
+  buttonElement.addEventListener("click", function() {
+    window.focus();
+  });
+  window.on("titleChange", function(oldTitle, newTitle) {
+    buttonElement.innerText = newTitle;
+  });
+  this.taskbar.appendChild(buttonElement);
 };
 
 Desktopical.prototype.tick = function() {
