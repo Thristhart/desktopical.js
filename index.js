@@ -4,7 +4,9 @@ var log = require('debug')('desktopical');
 var util = require('util');
 
 var Desktopical = function(opts) {
-  this.opts = {};
+  this.opts = {
+    taskBar: "bottom"
+  };
   if(!opts) opts = {};
   this.opts = merge(this.opts, opts);
 
@@ -15,6 +17,7 @@ var Desktopical = function(opts) {
   this.element = document.createElement("div");
   this.element.className = "desktopical";
   this.addWorkspace();
+  this.createTaskbar();
 
   this.tick();
 };
@@ -77,6 +80,14 @@ Desktopical.prototype.workspace = function(index) {
     index = this.visibleWorkspace;
   }
   return this.workspaces[index];
+};
+
+Desktopical.prototype.createTaskbar = function() {
+  if(!this.opts.taskBar)
+    return;
+  this.taskbar = document.createElement("ul");
+  this.taskbar.className = "desktopical taskbar " + this.opts.taskBar;
+  this.element.appendChild(this.taskbar);
 };
 
 Desktopical.prototype.tick = function() {

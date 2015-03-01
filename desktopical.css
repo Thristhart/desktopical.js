@@ -1,3 +1,33 @@
 .desktopical {
   overflow: hidden;
 }
+.desktopical.taskbar {
+  list-style: none;
+  display: flex;
+  position: absolute;
+  min-height: 2em;
+  margin: 0;
+}
+.desktopical.taskbar.bottom,.desktopical.taskbar.top {
+  left: 0;
+  width: 100%;
+  flex-direction: row;
+}
+.desktopical.taskbar.left,.desktopical.taskbar.right {
+  top: 0;
+  height: 100%;
+  flex-direction: column;
+}
+
+.desktopical.taskbar.top {
+  top: 0;
+}
+.desktopical.taskbar.bottom {
+  bottom: 0;
+}
+.desktopical.taskbar.left {
+  left: 0;
+}
+.desktopical.taskbar.right {
+  right: 0;
+}
