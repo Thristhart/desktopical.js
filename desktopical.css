@@ -5,18 +5,33 @@
   list-style: none;
   display: flex;
   position: absolute;
-  min-height: 2em;
   margin: 0;
+  padding: 0;
+}
+.desktopical.taskbar .task {
+  flex-grow: 1;
+  max-width: 10em;
+  max-height: 10em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom,
+    rgba(255,255,255,0.3) 0%,
+    rgba(255,255,255,0) 100%);
+
+  margin-right: 0.25em;
 }
 .desktopical.taskbar.bottom,.desktopical.taskbar.top {
   left: 0;
   width: 100%;
   flex-direction: row;
+  min-height: 2em;
 }
 .desktopical.taskbar.left,.desktopical.taskbar.right {
   top: 0;
   height: 100%;
   flex-direction: column;
+  min-width: 2em;
 }
 
 .desktopical.taskbar.top {
