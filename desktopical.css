@@ -21,7 +21,6 @@
 
   margin-right: 0.25em;
   cursor: pointer;
-  user-select: none;
 }
 .desktopical.taskbar.bottom,.desktopical.taskbar.top {
   left: 0;
