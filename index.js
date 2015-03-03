@@ -1,7 +1,9 @@
 var Windowsill = require('../windowsill');
 var merge = require('deepmerge');
+var Sortable = require('sortablejs');
 var log = require('debug')('desktopical');
 var util = require('util');
+
 
 var Desktopical = function(opts) {
   this.opts = {
@@ -90,6 +92,9 @@ Desktopical.prototype.createTaskbar = function() {
     return;
   this.taskbar = document.createElement("ul");
   this.taskbar.className = "desktopical taskbar " + this.opts.taskBar;
+  this.taskbarSortController = new Sortable(this.taskbar, {
+    draggable: ".task"
+  });
   this.element.appendChild(this.taskbar);
 };
 Desktopical.prototype.createTaskbarButton = function(window, app) {
