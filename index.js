@@ -127,8 +127,8 @@ Desktopical.prototype.createTaskbarButton = function(window, app) {
   buttonElement.setAttribute("data-appid", app.constructor.shortname);
   buttonElement.innerText = window.title;
   buttonElement.addEventListener("click", function() {
-    window.focus();
-  });
+    this.workspace().focus(window);
+  }.bind(this));
   window.on("titleChange", function(oldTitle, newTitle) {
     buttonElement.innerHTML = newTitle;
   });
