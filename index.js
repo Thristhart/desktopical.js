@@ -99,7 +99,7 @@ Desktopical.prototype.createTaskbar = function() {
   interact(this.taskbar)
     .draggable({})
     .actionChecker(function(event, defaultAction, interactable, element) {
-      if(event.target === element) {
+      if(event && event.target === element) {
         return defaultAction;
       }
     })
