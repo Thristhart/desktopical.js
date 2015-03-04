@@ -1,6 +1,7 @@
 var Windowsill = require('../windowsill');
 var merge = require('deepmerge');
 var Sortable = require('sortablejs');
+var interact = require('interact.js');
 var log = require('debug')('desktopical');
 var util = require('util');
 
@@ -17,7 +18,7 @@ var Desktopical = function(opts) {
   this.runningApps = [];
 
   this.element = document.createElement("div");
-  this.element.className = "desktopical";
+  this.element.className = "desktopical desktop";
   this.addWorkspace();
   this.createTaskbar();
 
@@ -95,7 +96,30 @@ Desktopical.prototype.createTaskbar = function() {
   this.taskbarSortController = new Sortable(this.taskbar, {
     draggable: ".task"
   });
+  interact(this.taskbar)
+    .draggable({})
+    .actionChecker(function(event, defaultAction, interactable, element) {
+      if(event.target === element) {
+        return defaultAction;
+      }
+    })
+    .on("dragmove", function(event) {
+      var quadrant = this.workspace().getCursorQuadrant();
+      if(quadrant != this.opts.taskBar)
+        this.moveTaskbar(quadrant);
+    }.bind(this));
+  this.element.className = "desktopical desktop taskbar_" + this.opts.taskBar;
   this.element.appendChild(this.taskbar);
+};
+Desktopical.prototype.moveTaskbar = function(newOrientation) {
+  this.opts.taskBar = newOrientation;
+  if(!this.taskbar) {
+    this.createTaskbar();
+  }
+  else {
+    this.taskbar.className = "desktopical taskbar " + this.opts.taskBar;
+    this.element.className = "desktopical desktop taskbar_" + this.opts.taskBar;
+  }
 };
 Desktopical.prototype.createTaskbarButton = function(window, app) {
   var buttonElement = document.createElement("li");
