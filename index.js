@@ -130,7 +130,7 @@ Desktopical.prototype.createTaskbarButton = function(window, app) {
     window.focus();
   });
   window.on("titleChange", function(oldTitle, newTitle) {
-    buttonElement.innerText = newTitle;
+    buttonElement.innerHTML = newTitle;
   });
   this.taskbar.appendChild(buttonElement);
 };
