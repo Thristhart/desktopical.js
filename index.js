@@ -1,4 +1,5 @@
 var Windowsill = require('../windowsill');
+var Menuine = require('../menuine');
 var merge = require('deepmerge');
 var Sortable = require('sortablejs');
 var interact = require('interact.js');
@@ -8,7 +9,8 @@ var util = require('util');
 
 var Desktopical = function(opts) {
   this.opts = {
-    taskBar: "bottom"
+    taskBar: "bottom",
+    menuEnabled: true
   };
   if(!opts) opts = {};
   this.opts = merge(this.opts, opts);
@@ -33,6 +35,11 @@ Desktopical.prototype.addWorkspace = function() {
   if(this.workspaces.length == 1) {
     this.switchToWorkspace(0);
   }
+  if(this.opts.menuEnabled) {
+    workspace.element.addEventListener("click", function() {
+      this.startMenu.hide();
+    }.bind(this));
+  }
   return workspace;
 };
 Desktopical.prototype.switchToWorkspace = function(index) {
@@ -53,6 +60,11 @@ Desktopical.prototype.registerApplication = function(app) {
 
   util.inherits(app, Desktopical.Application);
   this.applications[app.shortname] = app;
+  var item = this.startMenu.subMenus[0].addItem({text: app.fullname});
+  item.element.addEventListener("click", function() {
+    this.run(app.shortname);
+    this.startMenu.hide();
+  }.bind(this));
 
   log("Registered new application: <%s> - '%s'", app.shortname, app.fullname);
 };
@@ -108,8 +120,23 @@ Desktopical.prototype.createTaskbar = function() {
       if(quadrant != this.opts.taskBar)
         this.moveTaskbar(quadrant);
     }.bind(this));
+
+  if(this.opts.menuEnabled) {
+    this.createMenuButton();
+  }
   this.element.className = "desktopical desktop taskbar_" + this.opts.taskBar;
   this.element.appendChild(this.taskbar);
+};
+Desktopical.prototype.createMenuButton = function() {
+  this.menuButton = document.createElement("button");
+  this.menuButton.className = "desktopical menuButton";
+  this.taskbar.appendChild(this.menuButton);
+  this.startMenu = new Menuine();
+  this.element.appendChild(this.startMenu.element);
+  this.startMenu.addSubmenu({text: "Apps"}, new Menuine());
+  this.menuButton.addEventListener("click", function() {
+    this.startMenu.toggle();
+  }.bind(this));
 };
 Desktopical.prototype.moveTaskbar = function(newOrientation) {
   this.opts.taskBar = newOrientation;
