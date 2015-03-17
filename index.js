@@ -10,7 +10,8 @@ var util = require('util');
 var Desktopical = function(opts) {
   this.opts = {
     taskBar: "bottom",
-    menuEnabled: true
+    menuEnabled: true,
+    windowSpawnTransition: 300
   };
   if(!opts) opts = {};
   this.opts = merge(this.opts, opts);
@@ -86,11 +87,21 @@ Desktopical.prototype.createWindow = function(app, opts) {
   opts = merge({
     workspace: this.visibleWorkspace
   }, opts);
-  var window = this.workspaces[opts.workspace].createWindow(opts);
+  var windowObject = this.workspaces[opts.workspace].createWindow(opts);
+  var transitionDuration = this.opts.windowSpawnTransition;
+  windowObject.element.style.transform += " scale(0.1)";
+  windowObject.element.style.transition = "transform " + transitionDuration + "ms";
+  // doing this forces the element to recgonize the scaling
+  // so that we can now transition
+  window.getComputedStyle(windowObject.element).transform; 
+  windowObject.element.style.transform = windowObject.element.style.transform.replace("scale(0.1)", "scale(1)");
+  setTimeout(function() {
+    windowObject.element.style.transition = "none";
+  }, transitionDuration);
   if(this.taskbar) {
-    this.createTaskbarButton(window, app);
+    this.createTaskbarButton(windowObject, app);
   }
-  return window;
+  return windowObject;
 };
 
 Desktopical.prototype.workspace = function(index) {
