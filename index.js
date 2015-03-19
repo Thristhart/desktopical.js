@@ -158,6 +158,16 @@ Desktopical.prototype.moveTaskbar = function(newOrientation) {
     this.taskbar.className = "desktopical taskbar " + this.opts.taskBar;
     this.element.className = "desktopical desktop taskbar_" + this.opts.taskBar;
   }
+  if(this.startMenu) {
+    if(newOrientation == "right") {
+      this.startMenu.setDirection("left");
+    }
+    else {
+      this.startMenu.setDirection("right");
+    }
+    this.startMenu.render();
+  }
+
 };
 Desktopical.prototype.createTaskbarButton = function(window, app) {
   var buttonElement = document.createElement("li");
