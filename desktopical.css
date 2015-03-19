@@ -7,6 +7,7 @@
   order: 1;
 }
 .Menuine.menu {
+  text-align: center;
   width: 10vw;
   background: aliceblue;
   list-style: none;
@@ -23,7 +24,7 @@
 .Menuine.item:hover {
   background: cornflowerblue;
 }
-.Menuine.item.has_submenu:after {
+.Menuine.right .Menuine.item.has_submenu:after {
   content: " ";
   width: 0;
   height: 0;
@@ -35,6 +36,19 @@
   position: absolute;
   right: 0;
 }
+.Menuine.left .Menuine.item.has_submenu:after {
+  content: " ";
+  width: 0;
+  height: 0;
+  border-top: 1.5vh solid transparent;
+  border-bottom: 1.5vh solid transparent;
+
+  border-right: 1.5vh solid black;
+
+  position: absolute;
+  left: 0;
+}
+
 .desktopical.taskbar_bottom .Menuine.menu {
   bottom: 5.7vh;
   left: 0;
