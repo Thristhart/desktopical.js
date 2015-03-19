@@ -121,7 +121,8 @@ Desktopical.prototype.createTaskbar = function() {
   this.taskbar = document.createElement("ul");
   this.taskbar.className = "desktopical taskbar " + this.opts.taskBar;
   this.taskbarSortController = new Sortable(this.taskbar, {
-    draggable: ".task"
+    draggable: ".task",
+    animation: 100
   });
   interact(this.taskbar)
     .draggable({})
