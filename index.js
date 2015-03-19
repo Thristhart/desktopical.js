@@ -87,7 +87,9 @@ Desktopical.prototype.createWindow = function(app, opts) {
   opts = merge({
     workspace: this.visibleWorkspace
   }, opts);
-  var windowObject = this.workspaces[opts.workspace].createWindow(opts);
+
+  var workspace = this.workspaces[opts.workspace];
+  var windowObject = workspace.createWindow(opts);
   var transitionDuration = this.opts.windowSpawnTransition;
   windowObject.element.style.transform += " scale(0.1)";
   windowObject.element.style.transition = "transform " + transitionDuration + "ms";
@@ -100,6 +102,8 @@ Desktopical.prototype.createWindow = function(app, opts) {
   }, transitionDuration);
   if(this.taskbar) {
     this.createTaskbarButton(windowObject, app);
+    // we do this redundantly because the button didn't exist when we last focused the window
+    workspace.focus(windowObject);
   }
   return windowObject;
 };
@@ -179,6 +183,12 @@ Desktopical.prototype.createTaskbarButton = function(window, app) {
   }.bind(this));
   window.on("titleChange", function(oldTitle, newTitle) {
     buttonElement.innerHTML = newTitle;
+  });
+  window.on("focus", function() {
+    buttonElement.classList.add("focused");
+  });
+  window.on("blur", function() {
+    buttonElement.classList.remove("focused");
   });
   this.taskbar.appendChild(buttonElement);
 };
