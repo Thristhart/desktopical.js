@@ -163,7 +163,7 @@ Desktopical.prototype.createTaskbarButton = function(window, app) {
   var buttonElement = document.createElement("li");
   buttonElement.className = "desktopical task " + app.constructor.shortname + "app";
   buttonElement.setAttribute("data-appid", app.constructor.shortname);
-  buttonElement.innerText = window.title;
+  buttonElement.innerHTML = window.title;
   buttonElement.addEventListener("click", function() {
     this.workspace().focus(window);
   }.bind(this));
