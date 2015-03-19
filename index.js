@@ -1,5 +1,5 @@
-var Windowsill = require('../windowsill');
-var Menuine = require('../menuine');
+var Windowsill = require('windowsill');
+var Menuine = require('menuine');
 var merge = require('deepmerge');
 var Sortable = require('sortablejs');
 var interact = require('interact.js');
