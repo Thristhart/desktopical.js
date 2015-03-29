@@ -11,7 +11,8 @@ var Desktopical = function(opts) {
   this.opts = {
     taskBar: "bottom",
     menuEnabled: true,
-    windowSpawnTransition: 300
+    windowSpawnTransition: 300,
+    menuImage: null
   };
   if(!opts) opts = {};
   this.opts = merge(this.opts, opts);
@@ -24,6 +25,13 @@ var Desktopical = function(opts) {
   this.element.className = "desktopical desktop";
   this.addWorkspace();
   this.createTaskbar();
+
+  if(this.opts.useFontAwesome) {
+    var fontAwesomeLink = document.createElement("link");
+    fontAwesomeLink.rel = "stylesheet";
+    fontAwesomeLink.href = this.opts.fontAwesomePath;
+    document.head.appendChild(fontAwesomeLink);
+  }
 
   this.tick();
 };
@@ -146,6 +154,17 @@ Desktopical.prototype.createTaskbar = function() {
 Desktopical.prototype.createMenuButton = function() {
   this.menuButton = document.createElement("button");
   this.menuButton.className = "desktopical menuButton";
+  if(this.opts.menuImage) {
+    var imageElem;
+    if(this.opts.menuImage.nodeType > 0) {// duck-typing for DOM elements
+      imageElem = this.opts.menuImage;
+    }
+    else {
+      imageElem = document.createElement("img");
+      imageElem.src = this.opts.menuImage;
+    }
+    this.menuButton.appendChild(imageElem);
+  }
   this.taskbar.appendChild(this.menuButton);
   this.startMenu = new Menuine();
   this.element.appendChild(this.startMenu.element);

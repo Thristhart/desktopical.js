@@ -6,10 +6,17 @@
 .desktopical.desktop > * {
   order: 1;
 }
+.windowsill.titlebar .buttonContainer button {
+  background: linear-gradient(to bottom,
+    rgba(255,255,255,0.3) 0%,
+    rgba(255,255,255,0) 100%);
+  
+  border: none;
+}
 .Menuine.menu {
   text-align: center;
   width: 10vw;
-  background: aliceblue;
+  background-color: aliceblue;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -22,7 +29,7 @@
   height: 3vh;
 }
 .Menuine.item:hover {
-  background: cornflowerblue;
+  background-color: cornflowerblue;
 }
 .Menuine.right .Menuine.item.has_submenu:after {
   content: " ";
@@ -94,6 +101,9 @@
 }
 .desktopical.menuButton:active, .desktopical.menuButton.pressed {
   border-width: 1px;
+}
+.desktopical.menuButton img {
+  width: 100%;
 }
 .desktopical.taskbar.bottom .task,.desktopical.taskbar.top .task {
   background: linear-gradient(to bottom,
