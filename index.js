@@ -103,11 +103,13 @@ Desktopical.prototype.createWindow = function(app, opts) {
   windowObject.element.style.transition = "transform " + transitionDuration + "ms";
   // doing this forces the element to recgonize the scaling
   // so that we can now transition
-  window.getComputedStyle(windowObject.element).transform; 
-  windowObject.element.style.transform = windowObject.element.style.transform.replace("scale(0.1)", "scale(1)");
-  setTimeout(function() {
+  requestAnimationFrame(function() {
+    window.getComputedStyle(windowObject.element).transform;
+    windowObject.element.style.transform = windowObject.element.style.transform.replace("scale(0.1)", "scale(1)");
+  });
+  windowObject.element.addEventListener("transitionend", function(event) {
     windowObject.element.style.transition = "none";
-  }, transitionDuration);
+  }, false);
   if(this.taskbar) {
     this.createTaskbarButton(windowObject, app);
     // we do this redundantly because the button didn't exist when we last focused the window
