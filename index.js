@@ -98,6 +98,11 @@ Desktopical.prototype.createWindow = function(app, opts) {
 
   var workspace = this.workspaces[opts.workspace];
   var windowObject = workspace.createWindow(opts);
+  
+  windowObject.on("closeclick", function() {
+    this.closeWindow(app, workspace, windowObject);
+  }.bind(this));
+  
   var transitionDuration = this.opts.windowSpawnTransition;
   windowObject.element.style.transform += " scale(0.1)";
   windowObject.element.style.transition = "transform " + transitionDuration + "ms";
@@ -116,6 +121,10 @@ Desktopical.prototype.createWindow = function(app, opts) {
     workspace.focus(windowObject);
   }
   return windowObject;
+};
+
+Desktopical.prototype.closeWindow = function(app, workspace, window) {
+  workspace.removeWindow(window);
 };
 
 Desktopical.prototype.workspace = function(index) {
@@ -212,6 +221,9 @@ Desktopical.prototype.createTaskbarButton = function(window, app) {
   window.on("blur", function() {
     buttonElement.classList.remove("focused");
   });
+  window.on("closed", function() {
+    this.taskbar.removeChild(buttonElement);
+  }.bind(this));
   this.taskbar.appendChild(buttonElement);
 };
 
